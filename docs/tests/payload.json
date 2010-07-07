@@ -1,0 +1,22 @@
+{
+	"user": {
+		"get": {"alias": "johnny"},
+		"add": {
+				"fullname": "John Doe",
+				"alias": "johnny",
+				"email": "john@doe.com",
+				"website": "http://www.johndoe.com/",
+				"location": "Brighton, United Kingdom",
+				"description": "Lorem ipsum dolor sit amet."
+				}
+			},
+	"interest": {
+			"add": [{"name": "loadavg"}, {"name": "population"}],
+			"remove": {"id": "12"}
+			},
+	"graph": {
+		"add": [{"name": "Load Average"}, {"name": "Population"}],
+		"remove": {"id": "24"}
+	}
+}
+
