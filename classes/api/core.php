@@ -46,7 +46,8 @@ class Api_Core extends Controller
 			$this->request->action = 'skip';
 			$node = $this->creator->payload;
 			$code = $node->createElement('error', $e->getMessage());
-			$node->appendChild($code);
+			$root = $node->get_root();
+			$root->appendChild($code);
 		}
 
 		/* Validate, then store the input payload for processing */
@@ -60,7 +61,8 @@ class Api_Core extends Controller
 			$this->request->action = 'skip';
 			$node = $this->creator->payload;
 			$code = $node->createElement('error', $e->getMessage());
-			$node->appendChild($code);
+			$root = $node->get_root();
+			$root->appendChild($code);
 		}
 	}
 
