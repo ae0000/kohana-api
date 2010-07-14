@@ -7,6 +7,17 @@ return array(
 	'parser' => array(
 		'charset'		=> 'utf8',		// Default Content-Type header
 		'language'		=> 'en-us',		// Default Content-Language header
+		'enforce_checksum'	=> FALSE,	// Require the client to set Content-MD5
+
+		/* Allowed http methods. ( http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html ) */
+		'methods' => array(
+						=> 'HEAD',
+						=> 'POST',
+						=> 'GET',
+						//=> 'PUT',
+						=> 'TRACE',
+						//=> 'DELETE',
+		),
 	),
 
 	/* Default values for payload presented TO the client */

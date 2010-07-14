@@ -23,6 +23,7 @@ class Api_Parser
 	/* Details generated from the parser */
 	public $type;
 	public $format;
+	public $method;
 	public $payload;
 
 	/**
@@ -36,7 +37,7 @@ class Api_Parser
 	*/
 	public function __construct($core)
 	{
-		$this->core		= $core;
+		$this->core = $core;
 	}
 
 	/**
@@ -49,8 +50,16 @@ class Api_Parser
 	*/
 	public function load()
 	{
-		/* Decide which method the client submitted the request in */
-		switch ($_SERVER['REQUEST_METHOD'])
+		/* Store the http method for later use */
+		$this->method = $_SERVER['REQUEST_METHOD'];
+
+		/* Check that the API allows the method requested */
+		if ($this->method, Kohana::config('api.creator.type')) {
+			throw new Api_Exception('Method not supported', 405);
+		}
+
+		/* Get the payload out of the request */
+		switch ($this->method)
 		{
 			/* POST method used, just capture the payload content */
 			case 'POST':
@@ -59,12 +68,23 @@ class Api_Parser
 
 			/* GET method used, set the correct Content-Type, then get input */
 			case 'GET':
+			case 'HEAD':
 				$this->input = $_SERVER['QUERY_STRING'];
 				$_SERVER['CONTENT_TYPE'] = 'application/x-www-form-urlencoded';
 				$_SERVER['CONTENT_LENGTH'] = strlen($this->input);
 				$this->core->headers->get_input_type();
 				$this->core->headers->get_input_length();
 				break;
+
+			/* Put method used, still needs to be implemented */
+			case 'PUT':
+			case 'DELETE':
+				throw new Api_Exception('Not Implemented', 501);
+				break
+
+			/* Send the payload back to the client. A TRACE was requested */
+			case 'TRACE':
+				$this->input = file_get_contents('php://input');
 
 			/* The chient sent a request method we dont support, return error */
 			default:
@@ -105,6 +125,12 @@ class Api_Parser
 	/* Check if the provided md5sum matches the content */
 	public function check_md5($md5hash)
 	{
+		/* If enforced and no Content-MD5, throw an exception */
+		if (Kohana::config('api.parser.enforce_checksum') && !$md5hash) {
+			return FALSE;
+		}
+
+		/* If the checksum isnt valid, throw an exception */
 		return ($md5hash == hash('md5', $this->input) || !$md5hash) ?TRUE:FALSE;
 	}
 

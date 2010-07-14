@@ -60,18 +60,18 @@ class Api_Headers
 
 			/* Store the values we extracted */
 			if (array_key_exists('type',$content)) {
-				$this->input_type		= $content['type'];
+				$this->input_type = $content['type'];
 			}
 			if (array_key_exists('charset',$content)) {
-				$this->input_charset	= $content['charset'];
+				$this->input_charset = $content['charset'];
 			}
 			if (array_key_exists('format',$content)) {
-				$this->input_format		= $content['format'];
+				$this->input_format = $content['format'];
 			}
 
 			/* Overwrite Content-Type format to call the form parser */
 			if ($this->input_format == 'x-www-form-urlencoded') {
-				$this->input_format	= 'form';
+				$this->input_format = 'form';
 			}
 		} else {
 			/* Store defaults as no Content-Type was set */
