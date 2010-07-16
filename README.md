@@ -2,7 +2,6 @@
 ###### *Last edited: Wed, 16 July 2010 (stroppytux)* ######
 The kohana-api module is meant as a drop in solution for websites needing clients
 to be able to have access to the data remotely.
-
 The basic structure behind the API is divided into 4 distinct sections that each
 perform an action on the input or output payload. The 4 sections are:
 
@@ -42,29 +41,29 @@ test the API. Edit the configuration file to point to your server, then run:
 
 * Send an **XML** request to the client receiving **XML** back
 
-	modules/api/docs/tests/api.sh
+		modules/api/docs/tests/api.sh
 
 * Send an **XML** request receiving **JSON** back
 
-	modules/api/docs/tests/api.sh xml 0.8
+		modules/api/docs/tests/api.sh xml 0.8
 
 * Send a **JSON** request receiving **XML** back
 
-	modules/api/docs/tests/api.sh json 0.6
+		modules/api/docs/tests/api.sh json 0.6
 
 * Send a **GET** request receiving **JSON** back
 
-	modules/api/docs/tests/api.sh get 0.8
+		modules/api/docs/tests/api.sh get 0.8
 
 The `api.sh` can accept two parameters:
 
-1. ### Reqest payload ###
+1. #### Request payload ####
 	The first parameter is the type of payload you would like to send to the server.
 	This can be on of: `xml`, `json`, `post`, or `get`. The payload content is
 	defined in the payloads.(xml|json|form). The *GET* and *POST* requests both
 	use the payload.form file.
 
-2. ### Response payload ###
+2. #### Response payload ####
 	The second parameter contains a numerical value that is passed into the
 	Accept-Type header. The Accept-Type has a default value defined as **0.5**
 	for the request payload you are sending. If you set the second value to any
