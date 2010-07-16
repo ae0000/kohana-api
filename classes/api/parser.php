@@ -1,19 +1,19 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
-* The API parser parses the incoming payload sent by the client. It does so by
-* defining a set of standard methods to first validate that the payload received
-* is exactly what the client expected the API to receive. After that, the parser
-* checks the headers for the Content-Type and then converts the input payload to
-* a standardised Api_Payload object that can be recursed by a custom processor.
-*
-* @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
-* @package API
-* @copyright (c) 2010 Unmagnify team
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-* @version $id$
-* @link http://www.stroppytux.net/projects/kohana_api/
-* @since Available since Release 1.0
-*/
+ * The API parser parses the incoming payload sent by the client. It does so by
+ * defining a set of standard methods to first validate that the payload received
+ * is exactly what the client expected the API to receive. After that, the parser
+ * checks the headers for the Content-Type and then converts the input payload to
+ * a standardised Api_Payload object that can be recursed by a custom processor.
+ *
+ * @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
+ * @package API
+ * @copyright (c) 2010 Unmagnify team
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+ * @version $id$
+ * @link http://www.stroppytux.net/projects/kohana_api/
+ * @since Available since Release 1.0
+ */
 class Api_Parser
 {
 	/* Objects used for content negotiation */
@@ -27,27 +27,27 @@ class Api_Parser
 	public $payload;
 
 	/**
-	* Load the memory pointer into the instance core variable, then define our
-	* base object used for payload output. The root element name can be set with
-	* the config file for the API.
-	*
-	* @access	public
-	* @param	object	$core	Api_Core object
-	* @return	void
-	*/
+	 * Load the memory pointer into the instance core variable, then define our
+	 * base object used for payload output. The root element name can be set with
+	 * the config file for the API.
+	 *
+	 * @access	public
+	 * @param	object	$core	Api_Core object
+	 * @return	void
+	 */
 	public function __construct($core)
 	{
 		$this->core = $core;
 	}
 
 	/**
-	* Check the input method supplied by the client. Once chosen, get payload
-	* data and store it to be processed later. If we are not able to handle the
-	* request method, return a 405 (Method Not Allowed) error to the client.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * Check the input method supplied by the client. Once chosen, get payload
+	 * data and store it to be processed later. If we are not able to handle the
+	 * request method, return a 405 (Method Not Allowed) error to the client.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function load()
 	{
 		/* Store the http method for later use */
@@ -94,16 +94,16 @@ class Api_Parser
 	}
 
 	/**
-	* Check all the data placed in the input payload ties up the the header data
-	* sent to us. This ensures that the data sent to us hasnt been mangled when
-	* getting sent to us. It ensures we have a payload, then checks that the 
-	* length is what the client thought it should be, then checks that the md5
-	* hash matches the one the client sent. If any problems arise, return an
-	* error to the client.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * Check all the data placed in the input payload ties up the the header data
+	 * sent to us. This ensures that the data sent to us hasnt been mangled when
+	 * getting sent to us. It ensures we have a payload, then checks that the 
+	 * length is what the client thought it should be, then checks that the md5
+	 * hash matches the one the client sent. If any problems arise, return an
+	 * error to the client.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function check()
 	{
 		/* Ensure there is a payload to process */
@@ -141,16 +141,16 @@ class Api_Parser
 	}
 
 	/**
-	* Parse the input payload provided by the client into a standard format that
-	* we can use. If the client sent a Content-Type header, we force the parser
-	* to the one provided. If on the other hand, the client did not supply a one
-	* we loop through our parsers checking if any of them know what to do with
-	* the payload data. If this fails, we return an error type 415 (Unsupported
-	* Media Type) to the client.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * Parse the input payload provided by the client into a standard format that
+	 * we can use. If the client sent a Content-Type header, we force the parser
+	 * to the one provided. If on the other hand, the client did not supply a one
+	 * we loop through our parsers checking if any of them know what to do with
+	 * the payload data. If this fails, we return an error type 415 (Unsupported
+	 * Media Type) to the client.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function parse()
 	{
 		/* If a Content-Type was set, force the parser to use it */

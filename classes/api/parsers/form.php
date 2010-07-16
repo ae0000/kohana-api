@@ -1,16 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
-* Given a string containing valid x-www-form-urlencoded data, convert it into a
-* standard format we can use.
-*
-* @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
-* @package API
-* @copyright (c) 2010 Unmagnify team
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-* @version $id$
-* @link http://www.stroppytux.net/projects/kohana_api/
-* @since Available since Release 1.0
-*/
+ * Given a string containing valid x-www-form-urlencoded data, convert it into a
+ * standard format we can use.
+ *
+ * @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
+ * @package API
+ * @copyright (c) 2010 Unmagnify team
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+ * @version $id$
+ * @link http://www.stroppytux.net/projects/kohana_api/
+ * @since Available since Release 1.0
+ */
 class Api_Parsers_Form
 {
 	public $type;
@@ -47,15 +47,15 @@ class Api_Parsers_Form
 	}
 
 	/**
-	* As php's standard parse_str is hidious, this is a proper version that does
-	* handle variables in the query string with the same name, without the need
-	* for the non-standards compliant brackets. Basically, this one works like
-	* every cgi except php. (btw, who came up with the name 'parse_str'?)
-	*
-	* @access	private
-	* @param	string	$form
-	* @return	array
-	*/
+	 * As php's standard parse_str is hidious, this is a proper version that does
+	 * handle variables in the query string with the same name, without the need
+	 * for the non-standards compliant brackets. Basically, this one works like
+	 * every cgi except php. (btw, who came up with the name 'parse_str'?)
+	 *
+	 * @access	private
+	 * @param	string	$form
+	 * @return	array
+	 */
 	private static function as_array($form)
 	{
 		/* Break the query into key/values pairs */

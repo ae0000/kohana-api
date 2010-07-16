@@ -1,28 +1,22 @@
 <?xml version='1.0' standalone='yes'?>
-<!-- payload to be sent to http://api.example.com to run actions -->
+<!-- example payload to demonstrate the API -->
 <sections>
 	<!-- User actions -->
 	<user>
-		<get alias="johnny" />
-		<get alias="johnny" />
 		<add realname="John Doe" alias="johnny" password="randompassword">
 			<email>john@doe.com</email>
-			<website>http://www.johndoe.com</website>
-			<location>Brighton, United Kingdom</location>
+			<website>http://www.doe.com</website>
+			<location>Dark side, Moon</location>
 			<description><![CDATA[Lorem ipsum dolor sit amet.]]></description>
 		</add>
+		<get userid="1" />
+		<get alias="johnny" />
+		<!-- invalid user, should report an error -->
+		<get alias="reporterror" />
+		<!-- invalid method, should report that the method doesnt exist -->
+		<breakit value="wontwork" />
 	</user>
-	<!-- User interests -->
-	<interest>
-		<add interestname="loadavg" />
-		<add interestname="population" />
-		<remove interestid="12" />
-	</interest>
-	<!-- Graph actions contained in the <Graph> tag -->
-	<graph>
-		<add graphname="Load Average" />
-		<add graphname = "Population" />
-		<remove graphid="24" />
-	</graph>
+	<!-- this should report that the processor doesnt exist -->
+	<badprocess></badprocess>
 </sections>
 

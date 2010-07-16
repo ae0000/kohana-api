@@ -1,15 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
-* API Core controller.
-*
-* @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
-* @package API
-* @copyright (c) 2010 Unmagnify team
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-* @version $id$
-* @link http://www.stroppytux.net/projects/kohana_api/
-* @since Available since Release 1.0
-*/
+ * API Core controller.
+ *
+ * @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
+ * @package API
+ * @copyright (c) 2010 Unmagnify team
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+ * @version $id$
+ * @link http://www.stroppytux.net/projects/kohana_api/
+ * @since Available since Release 1.0
+ */
 class Api_Core extends Controller
 {
 	public $utils;
@@ -18,15 +18,15 @@ class Api_Core extends Controller
 	public $headers;
 
 	/**
-	* Overwrite the default Controller::before method to parse the input headers
-	* and payload. If we receive any errors that cant be dealt with, we set this
-	* http header status code to the one thrown by the exception, we then create
-	* an entry in the creator payload containing the error message, and finally
-	* skip the processing stage to go straight to the Controller:after stage.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * Overwrite the default Controller::before method to parse the input headers
+	 * and payload. If we receive any errors that cant be dealt with, we set this
+	 * http header status code to the one thrown by the exception, we then create
+	 * an entry in the creator payload containing the error message, and finally
+	 * skip the processing stage to go straight to the Controller:after stage.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function before()
 	{
 		/* Create our utility object and creator payload. */
@@ -41,6 +41,7 @@ class Api_Core extends Controller
 			$this->headers->get_input_type();
 			$this->headers->get_input_length();
 			$this->headers->get_input_language();
+
 		/* Error getting headers, send error */
 		} catch (Exception $e) {
 			$this->request->action = 'skip';
@@ -56,6 +57,7 @@ class Api_Core extends Controller
 			$this->parser->load();
 			$this->parser->check();
 			$this->parser->parse();
+
 		/* Error getting input payload, send error */
 		} catch (Exception $e) {
 			$this->request->action = 'skip';
@@ -67,14 +69,14 @@ class Api_Core extends Controller
 	}
 
 	/**
-	* Overwrite the default Controller::after method to create the output header
-	* and payload. If any errors are encountered during this stage, the output
-	* is wiped and a new empty payload is created. This payload then gets the
-	* error code added to it. The payload is then returned to the client.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * Overwrite the default Controller::after method to create the output header
+	 * and payload. If any errors are encountered during this stage, the output
+	 * is wiped and a new empty payload is created. This payload then gets the
+	 * error code added to it. The payload is then returned to the client.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	public function after()
 	{
 		try {
@@ -88,6 +90,7 @@ class Api_Core extends Controller
 			/* Generate the output payload data, then add the md5hash */
 			$this->creator->set_payload();
 			$this->headers->set_output_md5();
+
 		/* Error getting headers, send error */
 		} catch (Exception $e) {
 			$type = 'application/'.Kohana::config('api.creator.type');
@@ -105,14 +108,14 @@ class Api_Core extends Controller
 	}
 
 	/**
-	* When there is an error processing the input payload or the input headers,
-	* we bypass the processing stage by changing the kohana action to use this
-	* skip action. This ensures we dont try process an erroneous payload, but
-	* still enables us to generate an output payload.
-	*
-	* @access	public
-	* @return	void
-	*/
+	 * When there is an error processing the input payload or the input headers,
+	 * we bypass the processing stage by changing the kohana action to use this
+	 * skip action. This ensures we dont try process an erroneous payload, but
+	 * still enables us to generate an output payload.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	final public function action_skip()
 	{
 	}

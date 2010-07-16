@@ -12,7 +12,7 @@ POST_HOST=${hostname}
 POST_HEAD="HTTP/1.1\r\nHost: ${POST_HOST}\r\nConnection: close\r\n"
 POST_HEAD="${POST_HEAD}Accept-Language: ${language};q=0.5, en-us;q=0.3\r\n"
 
-# Check if we want to inable compression
+# Check if we want to enable compression
 if ${compress}; then
 	POST_HEAD="${POST_HEAD}Accept-Encoding: gzip\r\n"
 fi
@@ -31,7 +31,7 @@ if [ ${1} ]; then
 	default=${1}
 fi
 
-# Check if we are testing the xml or the json request
+# Decide on the type of payload we want to test
 case "${default}" in
 	get)
 		POST_HEAD="${POST_HEAD}Accept: application/xml;q=0.5, application/json;q=${2:-0.4}\r\n"
@@ -76,5 +76,5 @@ fi
 # Transmit our POST data to the server and await a response
 exec 3<>/dev/tcp/${POST_HOST}/80 || exit 1
 echo -e ${QUERY} >&3; cat "${PAYLOAD}" >&3
-cat <&3 #| more
+cat <&3
 

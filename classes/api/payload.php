@@ -1,25 +1,25 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
-* The API_Payload object is a SDO that we use to contain content.
-*
-* @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
-* @package API
-* @copyright (c) 2010 Unmagnify team
-* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-* @version $id$
-* @link http://www.stroppytux.net/projects/kohana_api/
-* @since Available since Release 1.0
-*/
+ * The API_Payload object is a SDO that we use to contain content.
+ *
+ * @Gary Stidston-Broadbent <kohana_api@stroppytux.net>
+ * @package API
+ * @copyright (c) 2010 Unmagnify team
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+ * @version $id$
+ * @link http://www.stroppytux.net/projects/kohana_api/
+ * @since Available since Release 1.0
+ */
 class Api_Payload extends DOMDocument
 {
 	/**
-	* Create a new DOMDocument object using the standard DOMDocument::loadXML
-	* method. This is just a wrapper to standardise naming conventions.
-	*
-	* @access	public
-	* @param	string	$xml
-	* @return	void
-	*/
+	 * Create a new DOMDocument object using the standard DOMDocument::loadXML
+	 * method. This is just a wrapper to standardise naming conventions.
+	 *
+	 * @access	public
+	 * @param	string	$xml
+	 * @return	void
+	 */
 	public function from_xml($xml)
 	{
 		$this->preserveWhiteSpace = FALSE;
@@ -27,12 +27,12 @@ class Api_Payload extends DOMDocument
 	}
 
 	/**
-	* Convert the DOMDocument object and all its children in to a standard xml
-	* string. This is just a wrapper to standardise naming conventions.
-	*
-	* @access	public
-	* @return	string
-	*/
+	 * Convert the DOMDocument object and all its children in to a standard xml
+	 * string. This is just a wrapper to standardise naming conventions.
+	 *
+	 * @access	public
+	 * @return	string
+	 */
 	public function as_xml()
 	{
 		$this->formatOutput = TRUE;
@@ -40,15 +40,15 @@ class Api_Payload extends DOMDocument
 	}
 
 	/**
-	* Given an array, this method recursivly converts the array key/value pairs
-	* into DOMNode objects. When it gets to the end of a stack, it turns any
-	* single nested key/value pairs into attributes of the parent element. If
-	* an attribute or element already exists, the existing one is converted into
-	* an element with the new children nested inside it.
-	*
-	* @access	public
-	* @param	array	$value
-	*/
+	 * Given an array, this method recursivly converts the array key/value pairs
+	 * into DOMNode objects. When it gets to the end of a stack, it turns any
+	 * single nested key/value pairs into attributes of the parent element. If
+	 * an attribute or element already exists, the existing one is converted into
+	 * an element with the new children nested inside it.
+	 *
+	 * @access	public
+	 * @param	array	$value
+	 */
 	public function dom_from_array($value, $key=null, DOMElement $element = null)
 	{
 		/* Set our default values if none have been passed in */
@@ -86,11 +86,11 @@ class Api_Payload extends DOMDocument
 	}
 
 	/**
-	* Convert the current DOMDocument and all its children into an array.
-	*
-	* @access	public
-	* @return	array
-	*/
+	 * Convert the current DOMDocument and all its children into an array.
+	 *
+	 * @access	public
+	 * @return	array
+	 */
 	public function dom_as_array(DOMNode $node = null)
 	{
 		$node = is_null($node) ? $this : $node;
@@ -128,11 +128,11 @@ class Api_Payload extends DOMDocument
 	}
 
 	/**
-	* Fetch the root element within the xml document.
-	*
-	* @access	public
-	* @return	object	DOMNode
-	*/
+	 * Fetch the root element within the xml document.
+	 *
+	 * @access	public
+	 * @return	object	DOMNode
+	 */
 	public function get_root()
 	{
 		/* Get the list of root elements. This should only return 1 result */
@@ -223,7 +223,7 @@ class Api_Payload extends DOMDocument
 		foreach($data as $key => $value) {
 			/* Decide if we want to add an element or an attribute */
 			if(is_array($value)) {
-				if (!Api_Payload::is_assoc($value)) {
+				if (!Arr::is_assoc($value)) {
 					Api_Payload::as_str($xml, $value, $key);
 				} else {
 					$xml->startElement($label ? $label : $key);
@@ -235,12 +235,6 @@ class Api_Payload extends DOMDocument
 				$xml->writeAttribute($key, $value);
 			}
 		}
-	}
-
-	/* Check if an array is associative */
-	private static function is_assoc($array)
-	{
-		return (is_array($array) && (count($array)==0 || 0 !== count(array_diff_key($array, array_keys(array_keys($array))))));
 	}
 }
 ?>
