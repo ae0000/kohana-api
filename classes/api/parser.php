@@ -54,7 +54,7 @@ class Api_Parser
 		$this->method = $_SERVER['REQUEST_METHOD'];
 
 		/* Check that the API allows the method requested */
-		if ($this->method, Kohana::config('api.creator.type')) {
+		if (!Kohana::config('api.parser.methods.'.$this->method)) {
 			throw new Api_Exception('Method not supported', 405);
 		}
 
@@ -80,7 +80,7 @@ class Api_Parser
 			case 'PUT':
 			case 'DELETE':
 				throw new Api_Exception('Not Implemented', 501);
-				break
+				break;
 
 			/* Send the payload back to the client. A TRACE was requested */
 			case 'TRACE':

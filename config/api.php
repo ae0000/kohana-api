@@ -10,13 +10,13 @@ return array(
 		'enforce_checksum'	=> FALSE,	// Require the client to set Content-MD5
 
 		/* Allowed HTTP methods. ( http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html ) */
-		'methods' => array(
-						=> 'HEAD',
-						=> 'POST',
-						=> 'GET',
-						//=> 'PUT',
-						=> 'TRACE',
-						//=> 'DELETE',
+		'methods'		=> array(
+			'HEAD'		=> TRUE,
+			'POST'		=> TRUE,
+			'GET'		=> TRUE,
+			'PUT'		=> FALSE,
+			'TRACE'		=> TRUE,
+			'DELETE'	=> FALSE,
 		),
 	),
 
