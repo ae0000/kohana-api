@@ -54,7 +54,7 @@ class Api_Parser
 		$this->method = $_SERVER['REQUEST_METHOD'];
 
 		/* Check that the API allows the method requested */
-		if (!Kohana::config('api.parser.methods.'.$this->method)) {
+		if ( ! Kohana::$config->load('api.parser.methods.'.$this->method)) {
 			throw new Api_Exception('Method not supported', 405);
 		}
 
@@ -126,9 +126,8 @@ class Api_Parser
 	public function check_md5($md5hash)
 	{
 		/* If enforced and no Content-MD5, throw an exception */
-		if (Kohana::config('api.parser.enforce_checksum') && !$md5hash) {
+		if ( Kohana::$config->load('api.parser.enforce_checksum') AND ! $md5hash )
 			return FALSE;
-		}
 
 		/* If the checksum isnt valid, throw an exception */
 		return ($md5hash == hash('md5', $this->input) || !$md5hash) ?TRUE:FALSE;

@@ -34,7 +34,7 @@ class Api_Creator
 	{
 		$this->core		= $core;
 		$this->payload	= new Api_Payload;
-		$root = $this->payload->createElement(Kohana::config('api.root'));
+		$root = $this->payload->createElement(Kohana::$config->load('api.root'));
 		$this->payload->appendChild($root);
 	}
 

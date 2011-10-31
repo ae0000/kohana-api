@@ -52,7 +52,7 @@ class Api_Payload extends DOMDocument
 	public function dom_from_array($value, $key=null, DOMElement $element = null)
 	{
 		/* Set our default values if none have been passed in */
-		$key = is_null($key) ? Kohana::config('api.root') : $key;
+		$key = is_null($key) ? Kohana::$config->load('api.root') : $key;
 		$element = is_null($element) ? $this : $element;
 
 		switch (is_array($value))
@@ -136,7 +136,7 @@ class Api_Payload extends DOMDocument
 	public function get_root()
 	{
 		/* Get the list of root elements. This should only return 1 result */
-		$root = $this->getElementsByTagName(Kohana::config('api.root'));
+		$root = $this->getElementsByTagName(Kohana::$config->load('api.root'));
 
 		/* Ensure we only got one result, if not, raise an error */
 		if ($root->length !== 1) {
@@ -207,7 +207,7 @@ class Api_Payload extends DOMDocument
 		$xml->startDocument('1.0', 'UTF-8');
 
 		if (is_null($start)) {
-			$xml->startElement(Kohana::config('api.root'));
+			$xml->startElement(Kohana::$config->load('api.root'));
 		} else {
 			$xml->startElement($start);
 		}
