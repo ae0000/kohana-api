@@ -127,7 +127,7 @@ class Api_Headers
 		if (array_key_exists('CONTENT_LANGUAGE', $_SERVER)) {
 			$this->input_language = $_SERVER['CONTENT_LANGUAGE'];
 		} else {
-			$this->input_language = Kohana::config('api.parser.language');
+			$this->input_language = Kohana::$config->load('api.parser.language');
 		}
 
 		/* Set the language fr processing the data and return */
@@ -225,7 +225,7 @@ class Api_Headers
 
 			/* Couldnt guess Content-Type, use default as client doesnt care */
 			} else {
-				$type = 'application/'.Kohana::config('api.creator.type');
+				$type = 'application/'.Kohana::$config->load('api.creator.type');
 				$this->core->request->headers['Content-Type'] = $type;
 				return true;
 			}
@@ -239,7 +239,7 @@ class Api_Headers
 		/* Check if the client set an Accept-Language */
 
 		/* If no Accept-Language, use the default */
-		$this->output_language = Kohana::config('api.creator.language');
+		$this->output_language = Kohana::$config->load('api.creator.language');
 
 		/* Set the Content-Language header and I18n languages */
 		$this->core->request->headers['Content-Language'] = $this->output_language;

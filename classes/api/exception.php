@@ -34,12 +34,13 @@ class Api_Exception extends Exception
 		parent::__construct($message, $code, NULL);
 
 		/* Set the correct HTTP/1.1 status code based off the error code */
-		$request = Request::instance();
+		$request = Request::$current;
 
-		if (array_key_exists($code, Request::$messages)) {
-			$request->status = $code;
-		} else {
-			$request->status = 400;
+		if (array_key_exists($code, Response::$messages)) {
+			Response::factory()->status($code);
+		} 
+		else {
+			Response::factory()->status(400);
 		}
 	}
 }
